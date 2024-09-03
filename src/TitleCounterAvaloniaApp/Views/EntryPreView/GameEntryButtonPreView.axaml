@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="using:tc.Views"
+             xmlns:viewModels="clr-namespace:tc.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="100"
+             x:Class="tc.Views.GameEntryButtonPreView"
+             x:DataType="viewModels:EntryViewModels.GameEntryViewModel">
+  <Border CornerRadius="10" ClipToBounds="True" Background="{Binding Score, Converter={x:Static views:Converters.MyConverter}}">
+    <Border CornerRadius="10" ClipToBounds="True" Margin="5" >
+      <Grid Background="#cc312029" Width="250" Height="100"
+          ColumnDefinitions="Auto,*"
+          RowDefinitions="Auto,Auto,*">
+        <Panel Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Width="72" Background="Transparent">
+          <Image Width="64" Height="128" VerticalAlignment="Center" Stretch="Uniform" Source="{Binding Cover}"/>
+          <PathIcon Height="64" Width="64" IsVisible="{Binding Cover, Converter={x:Static ObjectConverters.IsNull}}" Data="{StaticResource music_regular}"/>
+        </Panel>
+        <SelectableTextBlock Grid.Row="0" 
+                             Grid.Column="1" 
+                             HorizontalAlignment="Left" 
+                             Margin="10,5,1,0" 
+                             TextWrapping="Wrap" 
+                             TextTrimming="CharacterEllipsis" 
+                             MaxLines="2" 
+                             Text="{Binding CustomTitle}"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,5" Text="{Binding Status}"/>
+      </Grid>
+    </Border>
+  </Border>
+</UserControl>

@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:tc.ViewModels.EntryViewModels"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="200"
+             Width="200"
+             x:Class="tc.Views.FilmEntryView"
+             x:DataType="viewModels:FilmEntryViewModel">
+  <StackPanel Spacing="5" Width="200">
+    <TextBlock HorizontalAlignment="Center" Text="{Binding CustomTitle}"/>
+    <TextBlock HorizontalAlignment="Center" Text="{Binding Status}"/>
+  </StackPanel>
+</UserControl>
