@@ -124,6 +124,15 @@ namespace tc.Assets {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на No score.
+        /// </summary>
+        public static string EntryPanel_Score_NoScore {
+            get {
+                return ResourceManager.GetString("EntryPanel_Score_NoScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Status.
         /// </summary>
         public static string EntryPanel_Status {
@@ -142,6 +151,24 @@ namespace tc.Assets {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Invalid username or password.
+        /// </summary>
+        public static string LoginPage_InvalidUsernamePassword {
+            get {
+                return ResourceManager.GetString("LoginPage_InvalidUsernamePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Login.
+        /// </summary>
+        public static string LoginPage_LoginButton {
+            get {
+                return ResourceManager.GetString("LoginPage_LoginButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Login.
         /// </summary>
         public static string LoginPageHeader {
@@ -153,27 +180,36 @@ namespace tc.Assets {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Films.
         /// </summary>
-        public static string PaneItemName_Films {
+        public static string PaneItem_FilmsPage {
             get {
-                return ResourceManager.GetString("PaneItemName_Films", resourceCulture);
+                return ResourceManager.GetString("PaneItem_FilmsPage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Games.
         /// </summary>
-        public static string PaneItemName_Games {
+        public static string PaneItem_GamesPage {
             get {
-                return ResourceManager.GetString("PaneItemName_Games", resourceCulture);
+                return ResourceManager.GetString("PaneItem_GamesPage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Home.
         /// </summary>
-        public static string PaneItemName_Home {
+        public static string PaneItem_HomePage {
             get {
-                return ResourceManager.GetString("PaneItemName_Home", resourceCulture);
+                return ResourceManager.GetString("PaneItem_HomePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Error encountered while performing request. Check your connection or try again later..
+        /// </summary>
+        public static string ServiceUnavableMessage {
+            get {
+                return ResourceManager.GetString("ServiceUnavableMessage", resourceCulture);
             }
         }
     }

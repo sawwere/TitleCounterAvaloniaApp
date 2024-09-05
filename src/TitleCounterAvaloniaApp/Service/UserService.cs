@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -51,14 +50,8 @@ namespace tc.Service
 
         public async Task<UserDto?> RefreshCurrentUserAsync()
         {
-            var response = _restClient.HttpClient.GetAsync("http://localhost:80/api/user");
-            var responseContent = await response.Result.Content.ReadAsStringAsync();
-            if (!response.Result.IsSuccessStatusCode)
-            {
-                return null;
-            }
-            var userDto = JsonConvert.DeserializeObject<UserDto>(responseContent)!;
-            return userDto;
+            var response = _restClient.GetFromJsonAsync<UserDto>("/api/user").Result;
+            return response;
         }
     }
 }

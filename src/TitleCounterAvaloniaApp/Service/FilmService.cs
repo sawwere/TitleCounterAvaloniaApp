@@ -12,7 +12,7 @@ using tc.Utils.Exception;
 
 namespace tc.Service
 {
-    public class FilmService : ISearchableService
+    public class FilmService /*ISearchableService*/
     {
         private readonly IFilmRepository _filmRepository;
         private readonly RestApiClient _restClient;
@@ -25,26 +25,19 @@ namespace tc.Service
             _userService = userService;
         }
 
-        //TODO
         public void Create(ISearchable content)
         {
-            {
-                FilmEntryRequestDto filmEntry = FilmEntryRequestDto.Builder()
-                    .CustomTitle(content.Title)
-                    .Score(0)
-                    .Status("backlog")
-                    .DateCompleted(DateOnly.FromDateTime(DateTime.Today))
-                    .UserId(_userService.GetCurrentUserOrThrow().Id)
-                    .FilmId(content.Id)
-                    .Build();
+            FilmEntryRequestDto filmEntry = FilmEntryRequestDto.Builder()
+                .Id(null)
+                .CustomTitle(content.Title)
+                .Score(null)
+                .Status("backlog")
+                .DateCompleted(null)
+                .UserId(_userService.GetCurrentUserOrThrow().Id)
+                .FilmId(content.Id)
+                .Build();
 
-                _filmRepository.CreateFilmEntry(filmEntry);
-            }
-        }
-
-        public Entry? GetFromJson(string jsonString)
-        {
-            return JsonConvert.DeserializeObject<FilmEntry>(jsonString);
+            _filmRepository.CreateFilmEntry(filmEntry);
         }
 
         public IEnumerable<ISearchable> SearchByTitle(string title)
@@ -65,11 +58,6 @@ namespace tc.Service
             }
         }
 
-        public string ToString()
-        {
-            return "films";
-        }
-
         public void Update(Entry content)
         {
             if ((GameEntry)content is null)
@@ -87,27 +75,27 @@ namespace tc.Service
             }
             else
             {
-                var data = await _restClient.HttpClient.GetByteArrayAsync($@"http://localhost:8080/images/films/{id}.jpg");
+                var data = await _restClient.GetByteArrayAsync($@"/api/images/films/{id}.jpg");
                 return new MemoryStream(data);
             }
         }
 
         public static FilmEntry DtoToEntry(FilmEntryResponseDto filmEntryDto)
         {
-            if (!DateOnly.TryParse(filmEntryDto.DateCompleted, out DateOnly dateC))
+            if (!DateOnly.TryParse(filmEntryDto.DateCompleted, out DateOnly dateC) && filmEntryDto.DateCompleted is not null)
             {
                 throw new JsonParseException($"Error parsing dateCompleted of film with id {filmEntryDto.Film.Id}");
             }
-            if (!DateOnly.TryParse(filmEntryDto.Film.DateRelease, out DateOnly dateR))
+            if (!DateOnly.TryParse(filmEntryDto.Film.DateRelease, out DateOnly dateR) && filmEntryDto.Film.DateRelease is not null)
             {
                 throw new JsonParseException($"Error parsing dateRelease of film with id {filmEntryDto.Film.Id}");
             }
             Film film = Film.Builder()
                 .Id(filmEntryDto.Film.Id)
                 .Title(filmEntryDto.Film.Title)
-                .RusTitle(filmEntryDto.Film.RusTitle)
+                .AlternativeTitle(filmEntryDto.Film.AlternativeTitle)
                 .DateRelease(dateR)
-                .Time(filmEntryDto.Film.Time.Value) //TODO
+                .Time(filmEntryDto.Film.Time)
                 .LinkUrl(filmEntryDto.Film.LinkUrl)
                 .GlobalScore(filmEntryDto.Film.GlobalScore)
                 .Build();

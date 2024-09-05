@@ -7,12 +7,14 @@ namespace tc.Views
     public static class Converters
     {
         /// <summary>
-        /// Gets a Converter that takes a Entry as input and converts it into a brush with specific color
+        /// Gets a Converter that takes a Entry score as input and converts it into a brush with specific color
         /// </summary>
-        public static FuncValueConverter<long, IBrush> MyConverter { get; } =
-            new FuncValueConverter<long, IBrush>(x =>
+        public static FuncValueConverter<long?, IBrush> MyConverter { get; } =
+            new FuncValueConverter<long?, IBrush>(x =>
             {
                 IBrush result = new SolidColorBrush(Color.FromArgb(255, 128, 128, 128));
+                if (x == null)
+                    return result;
                 switch (x)
                 {
                     case 1:

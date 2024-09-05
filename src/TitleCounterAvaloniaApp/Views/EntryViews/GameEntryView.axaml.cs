@@ -14,4 +14,9 @@ public partial class GameEntryView : ReactiveUserControl<GameEntryViewModel>
 
         if (Design.IsDesignMode) return;
     }
+
+    public void TextBox_TextChanging(object sender, TextChangedEventArgs e)
+    {
+
+    }
 }

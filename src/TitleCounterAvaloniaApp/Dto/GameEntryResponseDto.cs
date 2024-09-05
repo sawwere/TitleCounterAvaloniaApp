@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace tc.Dto
@@ -9,23 +10,25 @@ namespace tc.Dto
         [JsonPropertyName("id")]
         public long Id { get; set; }
 
+        [Length(minimumLength: 1, maximumLength: 64)]
         [JsonPropertyName("custom_title")]
         public string CustomTitle { get; set; }
 
+        [Length(minimumLength: 0, maximumLength: 512)]
         [JsonPropertyName("note")]
         public string? Note { get; set; }
 
         [JsonPropertyName("score")]
-        public long Score { get; set; }
+        public long? Score { get; set; }
 
         [JsonPropertyName("status")]
         public string Status { get; set; }
 
         [JsonPropertyName("date_completed")]
-        public string DateCompleted { get; set; }
+        public string? DateCompleted { get; set; }
 
         [JsonPropertyName("time")]
-        public long Time { get; set; }
+        public long? Time { get; set; }
 
         [JsonPropertyName("platform")]
         public string? Platform { get; set; }

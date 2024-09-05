@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace tc.Dto
 {
@@ -11,12 +12,26 @@ namespace tc.Dto
         [JsonPropertyName("title")]
         public string Title { get; set; }
 
-        [JsonPropertyName("rus_title")]
-        public string? RusTitle { get; set; }
+        [JsonPropertyName("alternative_title")]
+        public string? AlternativeTitle { get; set; }
 
 
-        [JsonPropertyName("link_url")]
-        public string? LinkUrl { get; set; }
+        [JsonPropertyName("imdb_id")]
+        public string? ImdbId { get; set; }
+
+        [JsonPropertyName("imdb_id")]
+        public string? KpId { get; set; }
+
+        public string? LinkUrl
+        {
+            get
+            {
+                if (KpId is not null)
+                    return KpId;
+                return ImdbId;
+
+            }
+        }
 
 
         [JsonPropertyName("time")]

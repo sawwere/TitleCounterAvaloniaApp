@@ -17,20 +17,19 @@ namespace tc.Repository
             _restApiClient = restApiClient;
         }
 
+        public readonly Uri SearchUri = new Uri($"/films?q=");
+
         public IEnumerable<FilmDto> SearchByTitle(string title)
         {
-            var requestUri = new Uri(_restApiClient.HttpClient.BaseAddress + $"/films?q={title}");
-            var filmDtos = _restApiClient.HttpClient.GetFromJsonAsync<List<FilmDto>>(
-                    requestUri
-                )
+            var filmDtos = _restApiClient.GetFromJsonAsync<List<FilmDto>>($"/api/films?q={title}")
                 .Result;
             return filmDtos is null ? [] : filmDtos;
         }
 
         public IEnumerable<FilmEntryResponseDto> FindAll()
         {
-            var filmDtos = _restApiClient.HttpClient.GetFromJsonAsync<List<FilmEntryResponseDto>>(
-                    _restApiClient.HttpClient.BaseAddress + $"/users/{_userService.GetCurrentUserOrThrow().Username}/films"
+            var filmDtos = _restApiClient.GetFromJsonAsync<List<FilmEntryResponseDto>>(
+                    $"/api/users/{_userService.GetCurrentUserOrThrow().Username}/films"
                 )
                 .Result;
             return filmDtos is null ? [] : filmDtos;
@@ -38,8 +37,7 @@ namespace tc.Repository
 
         public bool CreateFilmEntry(FilmEntryRequestDto filmEntry)
         {
-            var response = _restApiClient.HttpClient.PostAsJsonAsync(
-                    _restApiClient.HttpClient.BaseAddress + $"/users/{_userService.GetCurrentUserOrThrow().Username}/films",
+            var response = _restApiClient.PostJsonAsync($"/api/users/{_userService.GetCurrentUserOrThrow().Username}/films",
                     filmEntry)
                 .Result;
             return response.IsSuccessStatusCode;
@@ -47,14 +45,13 @@ namespace tc.Repository
 
         public bool DeleteFilmEntry(long id)
         {
-            var response = _restApiClient.HttpClient.DeleteAsync(_restApiClient.HttpClient.BaseAddress + $"/films/submissions/{id}").Result;
+            var response = _restApiClient.DeleteAsync($"/api/films/submissions/{id}").Result;
             return response.IsSuccessStatusCode;
         }
 
         public bool UpdateFilmEntry(FilmEntryRequestDto filmEntryRequestDto)
         {
-            var response = _restApiClient.HttpClient.PutAsJsonAsync(
-                    _restApiClient.HttpClient.BaseAddress + $"/films/submissions/{filmEntryRequestDto.Id}",
+            var response = _restApiClient.PutJsonAsync($"/api/films/submissions/{filmEntryRequestDto.Id}",
                     filmEntryRequestDto)
                 .Result;
             return response.IsSuccessStatusCode;

@@ -5,11 +5,14 @@
              xmlns:assets="clr-namespace:tc.Assets"
              xmlns:views="using:tc.Views"
              xmlns:viewModels="clr-namespace:tc.ViewModels.EntryViewModels"
+             xmlns:converters="using:tc.Utils.Converters"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
              x:Class="tc.Views.EntryViews.GameEntryView"
              x:DataType="viewModels:GameEntryViewModel">
-  <Grid ShowGridLines="True"
-        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,*"
+  <UserControl.Resources>
+    <converters:ScoreComboIndexConverter x:Key="scoreConverter"/>
+  </UserControl.Resources>
+  <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,*"
         ColumnDefinitions="Auto,*">
     <Border CornerRadius="10" 
             ClipToBounds="True" 
@@ -22,6 +25,7 @@
         </Panel>
       </Panel>
     </Border>
+
     <TextBox Text="{Binding CustomTitle}"
              HorizontalAlignment="Center" 
              MaxLines="2"
@@ -29,10 +33,14 @@
              TextWrapping="Wrap"
              FontSize="26" 
              FontWeight="Bold" 
+             Background="Gray"
              Margin="5"
              Grid.Row="1"
-             Grid.ColumnSpan="2" />
-    <TextBlock Margin="5" 
+             Grid.ColumnSpan="2">
+
+    </TextBox>
+
+  <TextBlock Margin="5" 
                HorizontalAlignment="Left"
                Grid.Row="2"
                Grid.Column="0">
@@ -53,7 +61,13 @@
                 Orientation="Horizontal"
                 Grid.Row="3"
                 Grid.Column="1">
-      <NumericUpDown Minimum="0" Maximum="100000" ShowButtonSpinner="False" Value="{Binding Hours}"/>
+      <NumericUpDown Minimum="0" 
+                     Maximum="100000"
+                     FormatString="N0"
+                     ParsingNumberStyle="Integer"
+                     ShowButtonSpinner="False"
+                     Value="{Binding Hours}">
+        </NumericUpDown>
       <TextBlock Margin="5 0 0 5" 
                  VerticalAlignment="Center" 
                  Text="{x:Static assets:Resources.EntryPanel_Hours}"/>
@@ -71,11 +85,11 @@
       <Run Text="{x:Static assets:Resources.EntryPanel_Score}"/>
       <Run Text=": "/>
     </TextBlock>
-    <ComboBox SelectedIndex="{Binding Score}" 
+    <ComboBox SelectedIndex="{Binding Score, Converter={StaticResource scoreConverter}}" 
               MaxDropDownHeight="200"
               Grid.Row="4"
               Grid.Column="1">
-      <ComboBoxItem>0</ComboBoxItem>
+      <ComboBoxItem Content="{x:Static assets:Resources.EntryPanel_Score_NoScore}"></ComboBoxItem>
       <ComboBoxItem>1</ComboBoxItem>
       <ComboBoxItem>2</ComboBoxItem>
       <ComboBoxItem>3</ComboBoxItem>
@@ -135,7 +149,8 @@
             VerticalAlignment="Bottom"
             Grid.Row="8"
             Grid.ColumnSpan="2"
-            Content="{x:Static assets:Resources.DeleteEntryText}">
+            Content="{x:Static assets:Resources.DeleteEntryText}"
+            Command="{Binding DeleteCommand}">
     </Button>
   </Grid>
 </UserControl>

@@ -4,6 +4,7 @@ namespace tc.Models;
 
 public partial class GameEntry : Entry
 {
+    public long? Time { get; set; }
     public string? Platform { get; set; }
 
     //protected override AbstractContentService _service => GameService.Instance;
@@ -58,7 +59,7 @@ public partial class GameEntry : Entry
             return this;
         }
 
-        public GameEntryBuilder Score(long score)
+        public GameEntryBuilder Score(long? score)
         {
             _game.Score = score;
             return this;
@@ -70,7 +71,7 @@ public partial class GameEntry : Entry
             return this;
         }
 
-        public GameEntryBuilder Time(long time)
+        public GameEntryBuilder Time(long? time)
         {
             _game.Time = time;
             return this;
@@ -87,14 +88,4 @@ public partial class GameEntry : Entry
             return _game;
         }
     }
-
-    //public void Create(ISearchable searchable)
-    //{
-    //    _service.Create(searchable);
-    //}
-
-    //public void Update()
-    //{
-    //    _service.Update(this);
-    //}
 }

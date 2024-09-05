@@ -86,7 +86,8 @@ namespace tc.ViewModels
         public ListItemTemplate(Type type, string iconKey)
         {
             this.ModelType = type;
-            Label = type.Name.Replace("PageViewModel", "");
+            Label = Assets.Resources.ResourceManager.GetString("PaneItem_" + type.Name.Replace("ViewModel",""), Assets.Resources.Culture)!;
+            //Label = type.Name.Replace("PageViewModel", "");
 
             Application.Current!.TryFindResource(iconKey, out var res);
             ListItemIcon = (StreamGeometry)res!;

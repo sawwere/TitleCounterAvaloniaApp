@@ -4,7 +4,9 @@ namespace tc.Models
 {
     public class Game : AbstractContent
     {
-        public static GameBuilder builder()
+        public string? HltbId { get; set; }
+
+        public static GameBuilder Builder()
         {
             return new GameBuilder();
         }
@@ -29,14 +31,14 @@ namespace tc.Models
                 return this;
             }
 
-            public GameBuilder DateRelease(DateOnly date)
+            public GameBuilder DateRelease(DateOnly? date)
             {
                 _game.DateRelease = date;
                 return this;
             }
-            public GameBuilder LinkUrl(string linkUrl)
+            public GameBuilder HltbId(string? hltbId)
             {
-                _game.LinkUrl = linkUrl;
+                _game.HltbId = hltbId;
                 return this;
             }
 
@@ -46,7 +48,7 @@ namespace tc.Models
                 return this;
             }
 
-            public GameBuilder Time(long globalTime)
+            public GameBuilder Time(long? globalTime)
             {
                 _game.Time = globalTime;
                 return this;

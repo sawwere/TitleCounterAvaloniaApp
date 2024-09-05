@@ -17,7 +17,7 @@
         <PathIcon Height="64" Width="64" IsVisible="{Binding Cover, Converter={x:Static ObjectConverters.IsNull}}" Data="{StaticResource music_regular}"/>
       </Panel>
       <SelectableTextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="10,5,0,0" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxLines="2" Text="{Binding CustomTitle}"/>
-      <SelectableTextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="10,3,0,0" FontSize="12" FontStyle="Italic" TextTrimming="CharacterEllipsis" Text="{Binding RusTitle}" IsVisible="{Binding RusTitle, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+      <SelectableTextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="10,3,0,0" FontSize="12" FontStyle="Italic" TextTrimming="CharacterEllipsis" Text="{Binding AlternativeTitle}" IsVisible="{Binding AlternativeTitle, Converter={x:Static ObjectConverters.IsNotNull}}"/>
       <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,5" Text="{Binding Status}"/>
     </Grid>
       </Border>

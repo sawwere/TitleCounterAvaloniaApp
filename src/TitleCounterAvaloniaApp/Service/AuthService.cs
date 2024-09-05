@@ -11,12 +11,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using tc.Dto;
 using tc.Models;
+using tc.Utils.Exception;
 
 namespace tc.Service
 {
     public class AuthService
     {
         private readonly RestApiClient _restApiClient;
+        private readonly AuthResultFactory _authenticationResultFactory;
         public string? AccessToken { get; private set; }
         public string? RefreshToken { get; private set; }
 
@@ -25,6 +27,7 @@ namespace tc.Service
             _restApiClient = restApiClient;
             AccessToken = string.Empty;
             RefreshToken = string.Empty;
+            _authenticationResultFactory = new AuthResultFactory();
         }
 
         public async Task RefreshTokenPeriodicallyAsync(string refreshToken, TimeSpan period, CancellationToken cancellationToken)
@@ -38,80 +41,103 @@ namespace tc.Service
 
         private void _refreshToken(string refreshToken)
         {
-            var content = JsonContent.Create(new KeyValuePair<string, string>("refreshToken", refreshToken));
-            HttpResponseMessage result = _restApiClient
-                .HttpClient.PostAsync("http://localhost:80/api/auth/token", content)
-                .Result
-                .EnsureSuccessStatusCode();
-            _setTokens(JsonConvert.DeserializeObject<JwtAuthenticationResponse>(result.Content.ReadAsStringAsync().Result)!);
+            //var content = JsonContent.Create(new KeyValuePair<string, string>("refreshToken", refreshToken));
+            //HttpResponseMessage result = _restApiClient
+            //    .HttpClient.PostAsync("http://localhost:80/api/auth/token", content)
+            //    .Result
+            //    .EnsureSuccessStatusCode();
+            //_setTokens(JsonConvert.DeserializeObject<JwtAuthenticationResponse>(result.Content.ReadAsStringAsync().Result)!);
         }
 
         private void _setTokens(JwtAuthenticationResponse jwt)
         {
             AccessToken = jwt.accessToken;
             RefreshToken = jwt.refreshToken;
-            _restApiClient.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwt.accessToken);
+            _restApiClient.SetAuthorizationHeader(new AuthenticationHeaderValue("Bearer", jwt.accessToken));
             Debug.WriteLine(AccessToken);
         }
 
-        public static readonly Uri LoginUri = new Uri("http://localhost:80/api/auth/login");
+        public static readonly Uri LoginUri = new Uri("/api/auth/login");
         public static readonly Uri LogoutUri = new Uri("http://localhost:80/api/auth/logout");
 
         public void Logout()
         {
-            var result = _restApiClient.HttpClient.GetAsync(LogoutUri).Result;
-            result.EnsureSuccessStatusCode();
             Debug.WriteLine("Logout succesfully");
         }        
 
-        public async Task<AuthenticationResult?> AuthenticateAsync(UserLoginDto userLoginDto)
+        public async Task<AuthenticationResult> AuthenticateAsync(UserLoginDto userLoginDto)
         {
-            var jsonContent = JsonContent.Create(userLoginDto);
-            var response = await _restApiClient.HttpClient.PostAsync(LoginUri, jsonContent);
-            if (response is null)
+            try
             {
-                return null;
+                var response = await _restApiClient.PostJsonAsync("/api/auth/login", userLoginDto);
+                if (!response.IsSuccessStatusCode)
+                {
+                    Exception ex;
+                    if (response.StatusCode > (HttpStatusCode)399 && response.StatusCode < (HttpStatusCode)500)
+                    {
+                        ex = new ClientSideException();
+                    }
+                    else
+                    {
+                        ex = new ApiResponseException();
+                    }
+                    ex.Data["responseContent"] = response.Content;
+                    return _authenticationResultFactory.MakeFailed(response.StatusCode, ex);
+                }
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                var jwtResponse = JsonConvert.DeserializeObject<JwtAuthenticationResponse>(responseContent)!;
+                var access = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(jwtResponse.accessToken);
+                var claims = access.Claims;
+                var user = new User
+                {
+                    Id = (int)access.Payload["id"],
+                    Username = access.Payload.Sub,
+                    Email = access.Payload["email"].ToString()!,
+                    Roles = access.Claims.Where(x => x.Type == "roles").Select(x => x.Value).ToList()
+                };
+                _setTokens(jwtResponse);
+                return _authenticationResultFactory.MakeSuccessfull(user, jwtResponse);
             }
-            else if (!response.IsSuccessStatusCode)
-            {
-                return new AuthenticationResult(response.StatusCode);
+            catch (HttpRequestException httpEx) 
+            { 
+                return _authenticationResultFactory.MakeFailed(HttpStatusCode.ServiceUnavailable, new ServiceUnavailableException(httpEx.Message));
             }
-            var responseContent = await response.Content.ReadAsStringAsync();
-            
-            var jwtResponse = JsonConvert.DeserializeObject<JwtAuthenticationResponse>(responseContent)!;
-            var access = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(jwtResponse.accessToken);
-            var claims = access.Claims;
-            var user = new User
-            {
-                Id = (int)access.Payload["id"],
-                Username = access.Payload.Sub,
-                Email = access.Payload["email"].ToString()!,
-                Roles = access.Claims.Where(x => x.Type == "roles").Select(x => x.Value).ToList()
-            };
-            return new AuthenticationResult(user, jwtResponse.accessToken, jwtResponse.refreshToken, jwtResponse.expiresIn, response.StatusCode);
         }
+    }
+
+    internal class AuthResultFactory
+    {
+        public AuthenticationResult MakeSuccessfull(User user, JwtAuthenticationResponse jwtResponse) =>
+            new AuthenticationResult(user, jwtResponse);
+
+        public AuthenticationResult MakeFailed(HttpStatusCode statusCode, Exception exception)
+        {
+            return new AuthenticationResult(statusCode, exception);
+        }
+            
     }
 
     public class AuthenticationResult
     {
-        public AuthenticationResult(HttpStatusCode statusCode)
+        public AuthenticationResult(HttpStatusCode statusCode, Exception exception)
         {
             StatusCode = statusCode;
+            Exception = exception;
         }
 
-        public AuthenticationResult(User user, string accessToken, string refreshToken, int expiresIn, HttpStatusCode statusCode)
+        public AuthenticationResult(User user, JwtAuthenticationResponse jwtAuthenticationResponse)
         {
             User = user;
-            AccessToken = accessToken;
-            RefreshToken = refreshToken;
-            ExpiresIn = expiresIn;
-            StatusCode = statusCode;
+            Response = jwtAuthenticationResponse;
+            StatusCode = HttpStatusCode.OK;
         }
 
+        public Exception? Exception { get; private set; }
         public User? User { get; set; }
-        public string? AccessToken { get; set; }
-        public string? RefreshToken { get; set; }
-        public int? ExpiresIn { get; set; }
+        public JwtAuthenticationResponse? Response { get; private set; }
         public HttpStatusCode StatusCode { get; set; }
+
+        public bool IsSuccesfull {  get => StatusCode == HttpStatusCode.OK; }
     }
 }

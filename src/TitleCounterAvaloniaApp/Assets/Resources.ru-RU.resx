@@ -120,13 +120,13 @@
   <data name="LoginPageHeader" xml:space="preserve">
     <value>Вход</value>
   </data>
-  <data name="PaneItemName_Home" xml:space="preserve">
+  <data name="PaneItem_HomePage" xml:space="preserve">
     <value>Домой</value>
   </data>
-  <data name="PaneItemName_Games" xml:space="preserve">
+  <data name="PaneItem_GamesPage" xml:space="preserve">
     <value>Игры</value>
   </data>
-  <data name="PaneItemName_Films" xml:space="preserve">
+  <data name="PaneItem_FilmsPage" xml:space="preserve">
     <value>Фильмы</value>
   </data>
   <data name="EntryPanel_DateRelease" xml:space="preserve">
@@ -155,5 +155,17 @@
   </data>
   <data name="DeleteEntryText" xml:space="preserve">
     <value>Удалить запись</value>
+  </data>
+  <data name="EntryPanel_Score_NoScore" xml:space="preserve">
+    <value>Без оценки</value>
+  </data>
+  <data name="ServiceUnavableMessage" xml:space="preserve">
+    <value>Во время выполнения запроса произошла ошибка. Проверьте подключение к сети или повторите позднее.</value>
+  </data>
+  <data name="LoginPage_InvalidUsernamePassword" xml:space="preserve">
+    <value>Неверное имя пользователя или пароль</value>
+  </data>
+  <data name="LoginPage_LoginButton" xml:space="preserve">
+    <value>Войти</value>
   </data>
 </root>

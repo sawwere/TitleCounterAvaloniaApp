@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace tc.Dto
 {
@@ -12,9 +13,13 @@ namespace tc.Dto
         public string Title { get; set; }
 
 
-        [JsonPropertyName("link_url")]
-        public string? LinkUrl { get; set; }
+        [JsonPropertyName("hltb_id")]
+        public string? HltbId { get; set; }
 
+        public string? LinkUrl
+        {
+            get => HltbId;
+        }
 
         [JsonPropertyName("time")]
         public long? Time { get; set; }

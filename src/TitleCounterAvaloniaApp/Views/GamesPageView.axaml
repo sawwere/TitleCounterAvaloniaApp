@@ -7,49 +7,59 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="tc.Views.GamesPageView"
              x:DataType="vm:GamesPageViewModel">
-   <SplitView PanePlacement="Right"
-               IsPaneOpen="{Binding SelectedEntry, Converter={x:Static ObjectConverters.IsNotNull}}"
-           DisplayMode="CompactInline"
-           OpenPaneLength="400">
-      <SplitView.Pane>
-        <Panel Background="Gray">
-          <ContentControl Content="{Binding SelectedEntry}" Margin="0,20,0,0">
-          </ContentControl>
-          </Panel>
-        </SplitView.Pane>
-    <DockPanel Background="#ff34284b">
-      <StackPanel DockPanel.Dock="Top">
-        <Button HorizontalAlignment="Left" Margin="10,10,0,0"
-            Command="{Binding SearchCommand}" >
-          <Image Width="36" Height="36" Source="/Assets/search_icon.png" />
-        </Button>
-      </StackPanel>
-
-      <ListBox Margin="0 10 0 0" 
-               ItemsSource="{Binding Contents}" 
-               SelectedItem="{Binding SelectedEntry}"
-               HorizontalAlignment="Center">
-        <ListBox.ItemsPanel>
-          <ItemsPanelTemplate>
-            <WrapPanel >
-
-            </WrapPanel>
-          </ItemsPanelTemplate>
-        </ListBox.ItemsPanel>
-        <ListBox.Styles>
-          <Style Selector="ListBoxItem">
-            <Setter Property="Background" Value="#ff34284b"/>
-          </Style>
-        </ListBox.Styles>
-        <ListBox.DataTemplates>
-          <DataTemplate DataType="vm:EntryViewModels.GameEntryViewModel">
+  <Design.DataContext>
+  </Design.DataContext>
+  <Grid>
+    <views:ErrorMessageOverlayView DataContext="{Binding ErrorOverlay}" 
+                                   ZIndex="1000"
+                                   IsVisible="{Binding Message, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+    <TabControl Margin="5">
+      <TabItem Content="Tab 1">
+        <TabItem.Header>
+            <Image Width="36" Height="36" Source="/Assets/search_icon.png" />
+        </TabItem.Header>
+        <TransitioningContentControl>
+          <views:SearchView DataContext="{Binding Search}"/>
+        </TransitioningContentControl>
+      </TabItem>
+        
+      <TabItem Header="List">
+        <SplitView PanePlacement="Right"
+            IsPaneOpen="{Binding SelectedEntry, Converter={x:Static ObjectConverters.IsNotNull}}"
+        DisplayMode="CompactInline"
+        OpenPaneLength="400">
+          <SplitView.Pane>
+            <Panel Background="Gray">
+              <ContentControl Content="{Binding SelectedEntry}" Margin="0,20,0,0">
+              </ContentControl>
+            </Panel>
+          </SplitView.Pane>
+        <ListBox Margin="0 10 0 0"
+              ItemsSource="{Binding TestViewModels}"
+              SelectedItem="{Binding SelectedEntry}"
+              HorizontalAlignment="Center">
+          <ListBox.ItemsPanel>
+            <ItemsPanelTemplate>
+              <WrapPanel >
+              </WrapPanel>
+            </ItemsPanelTemplate>
+          </ListBox.ItemsPanel>
+          <ListBox.Styles>
+            <Style Selector="ListBoxItem">
+              <Setter Property="Background" Value="#ff34284b"/>
+            </Style>
+          </ListBox.Styles>
+          <ListBox.DataTemplates>
+            <DataTemplate DataType="vm:EntryViewModels.GameEntryViewModel">
               <views:GameEntryButtonPreView Margin="0 0 2 2" />
-          </DataTemplate>
-          <DataTemplate DataType="vm:EntryViewModels.FilmEntryViewModel">
-            <views:FilmEntryButtonPreView Margin="0 0 2 2" />
-          </DataTemplate>
-        </ListBox.DataTemplates>
-      </ListBox>
-    </DockPanel>
-    </SplitView>
+            </DataTemplate>
+          </ListBox.DataTemplates>
+        </ListBox>
+        </SplitView>
+      </TabItem>
+      <TabItem Header="Stats">
+        <TextBlock Margin="5">No content</TextBlock>
+      </TabItem>
+    </TabControl>
+  </Grid>
 </UserControl>

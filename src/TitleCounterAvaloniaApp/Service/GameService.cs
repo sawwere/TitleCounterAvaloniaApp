@@ -25,18 +25,20 @@ namespace tc.Service
             _restClient = restApiClient;
         }
 
-        public Task<GameEntryResponseDto?> Create(ISearchable content)
+        public async Task<Entry?> Create(ISearchable content)
         {
             GameEntryRequestDto gameEntry = GameEntryRequestDto.Builder()
+                .Id(null)
                 .CustomTitle(content.Title)
-                .Score(0)
+                .Score(null)
                 .Status("backlog")
-                .DateCompleted(DateOnly.FromDateTime(DateTime.Today))
-                .Time(content.Time.Value) //TODO
+                .DateCompleted(null)
+                .Time(null)
                 .UserId(_userService.GetCurrentUserOrThrow().Id)
                 .GameId(content.Id)
                 .Build();
-            return _gameRepository.CreateGameEntry(gameEntry);
+            var response = await _gameRepository.CreateGameEntry(gameEntry);
+            return DtoToEntry(response); //TODO
         }
 
         public IEnumerable<ISearchable> SearchByTitle(string title)
@@ -44,59 +46,47 @@ namespace tc.Service
             return _gameRepository.SearchByTitle(title);
         }
 
-        public async Task<IEnumerable<Entry>> Load()
+        public async Task<IEnumerable<Entry>> FindAll()
         {
-            return _gameRepository.FindAll().Select(x => DtoToEntry(x));
+            return (await _gameRepository.FindAll()).Select(x => DtoToEntry(x));
         }
 
         public void Remove(long id)
         {
-            if (_gameRepository.DeleteGameEntry(id))
+            if (_gameRepository.DeleteGameEntry(id).Result)
             {
                 Debug.WriteLine($"deleted gamesId = {id}");
             }
         }
 
-        public string ToString()
-        {
-            return "games";
-        }
-
-        public Task<GameEntryResponseDto?> UpdateEntry(GameEntry entry)
+        public Task<GameEntryResponseDto?> Update(GameEntry entry)
         {
             ArgumentNullException.ThrowIfNull(entry);
             return _gameRepository.UpdateGameEntry(EntryToRequestDto(entry));
         }
 
-        public async Task<Stream> LoadCoverBitmapAsync(long id)
+        public async Task<byte[]> LoadCoverAsync(long id)
         {
-            if (File.Exists(id + ".bmp"))
-            {
-                return File.OpenRead(id + ".bmp");
-            }
-            else
-            {
-                var data = await _restClient.HttpClient.GetByteArrayAsync($@"http://localhost:8080/images/games/{id}.jpg");
-                return new MemoryStream(data);
-            }
+            var data = await _restClient.GetByteArrayAsync($"/api/images/games/{id}.jpg");
+            return data;
         }
 
         public static GameEntry DtoToEntry(GameEntryResponseDto gameEntryDto)
         {
-            if (!DateOnly.TryParse(gameEntryDto.DateCompleted, out DateOnly dateC))
+            if (!DateOnly.TryParse(gameEntryDto.DateCompleted, out DateOnly dateC) && gameEntryDto.DateCompleted is not null)
             {
                 throw new JsonParseException($"Error parsing dateCompleted of game with id {gameEntryDto.Game.Id}");
             }
-            if (!DateOnly.TryParse(gameEntryDto.Game.DateRelease, out DateOnly dateR))
+            if (!DateOnly.TryParse(gameEntryDto.Game.DateRelease, out DateOnly dateR) && gameEntryDto.Game.DateRelease is not null)
             {
                 throw new JsonParseException($"Error parsing dateRelease of game with id {gameEntryDto.Game.Id}");
             }
-            Game game = Game.builder()
+            Game game = Game.Builder()
                 .Id(gameEntryDto.Game.Id)
                 .Title(gameEntryDto.Game.Title)
                 .DateRelease(dateR)
-                .Time(gameEntryDto.Game.Time.Value)
-                .LinkUrl(gameEntryDto.Game.LinkUrl)
+                .Time(gameEntryDto.Game.Time)
+                .HltbId(gameEntryDto.Game.HltbId)
                 .GlobalScore(gameEntryDto.Game.GlobalScore)
                 .Build();
             return GameEntry.Builder()

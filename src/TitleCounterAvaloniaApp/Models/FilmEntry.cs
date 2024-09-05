@@ -43,13 +43,13 @@ public partial class FilmEntry : Entry
             return this;
         }
 
-        public FilmEntryBuilder DateCompleted(DateOnly date)
+        public FilmEntryBuilder DateCompleted(DateOnly? date)
         {
             _res.DateCompleted = date;
             return this;
         }
 
-        public FilmEntryBuilder Score(long score)
+        public FilmEntryBuilder Score(long? score)
         {
             _res.Score = score;
             return this;
@@ -58,12 +58,6 @@ public partial class FilmEntry : Entry
         public FilmEntryBuilder Status(string status)
         {
             _res.Status = status;
-            return this;
-        }
-
-        public FilmEntryBuilder Time(long time)
-        {
-            _res.Time = time;
             return this;
         }
 

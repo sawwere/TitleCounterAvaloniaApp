@@ -29,6 +29,7 @@ namespace tc
             collection
                 .AddSingleton<MainWindow>()
                 .AddTransient<HomePageView>()
+                .AddTransient<SearchView>()
                 .AddSingleton<GamesPageView>()
                 .AddSingleton<FilmsPageView>()
                 .AddSingleton<LoginPageView>();

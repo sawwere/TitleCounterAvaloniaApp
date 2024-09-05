@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace tc.Dto
@@ -6,26 +7,27 @@ namespace tc.Dto
     public class GameEntryRequestDto
     {
         [JsonPropertyName("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
-
+        [Length(minimumLength: 1, maximumLength: 64)]
         [JsonPropertyName("custom_title")]
         public string CustomTitle { get; set; }
 
+        [Length(minimumLength: 0, maximumLength: 512)]
         [JsonPropertyName("note")]
         public string? Note { get; set; }
 
         [JsonPropertyName("score")]
-        public long Score { get; set; }
+        public long? Score { get; set; }
 
         [JsonPropertyName("status")]
         public string Status { get; set; }
 
         [JsonPropertyName("date_completed")]
-        public string DateCompleted { get; set; }
+        public string? DateCompleted { get; set; }
 
         [JsonPropertyName("time")]
-        public long Time { get; set; }
+        public long? Time { get; set; }
 
         [JsonPropertyName("platform")]
         public string? Platform { get; set; }
@@ -46,7 +48,7 @@ namespace tc.Dto
                 _result = new GameEntryRequestDto();
             }
 
-            public GameEntryDtoBuilder Id(long id)
+            public GameEntryDtoBuilder Id(long? id)
             {
                 _result.Id = id;
                 return this;
@@ -70,9 +72,10 @@ namespace tc.Dto
                 return this;
             }
 
-            public GameEntryDtoBuilder DateCompleted(DateOnly date)
+            public GameEntryDtoBuilder DateCompleted(DateOnly? date)
             {
-                _result.DateCompleted = $"{date.Year}-{string.Format("{0:D2}", date.Month)}-{string.Format("{0:D2}", date.Day)}";
+                if (date is not null)
+                    _result.DateCompleted = $"{date.Value.Year}-{string.Format("{0:D2}", date.Value.Month)}-{string.Format("{0:D2}", date.Value.Day)}";
                 return this;
             }
 
@@ -82,7 +85,7 @@ namespace tc.Dto
                 return this;
             }
 
-            public GameEntryDtoBuilder Score(long score)
+            public GameEntryDtoBuilder Score(long? score)
             {
                 _result.Score = score;
                 return this;
@@ -94,7 +97,7 @@ namespace tc.Dto
                 return this;
             }
 
-            public GameEntryDtoBuilder Time(long time)
+            public GameEntryDtoBuilder Time(long? time)
             {
                 _result.Time = time;
                 return this;

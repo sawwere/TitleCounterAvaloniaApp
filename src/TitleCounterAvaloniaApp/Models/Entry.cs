@@ -15,14 +15,12 @@ namespace tc.Models
 
         public string CustomTitle { get; set; } = null!;
 
-        public long Time { get; set; }
-
         public string Status { get; set; }
 
-        public DateOnly DateCompleted { get; set; }
+        public DateOnly? DateCompleted { get; set; }
 
         public string? Note { get; set; }
 
-        public long Score { get; set; }
+        public long? Score { get; set; }
     }
 }

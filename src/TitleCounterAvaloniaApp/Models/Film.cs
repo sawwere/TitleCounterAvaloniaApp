@@ -4,7 +4,9 @@ namespace tc.Models
 {
     public class Film : AbstractContent
     {
-        public string? RusTitle { get; set; }
+        public string? AlternativeTitle { get; set; }
+        public string? ImdbId { get; set; }
+        public string? KpId { get; set; }
 
         public static FilmBuilder Builder()
         {
@@ -31,9 +33,9 @@ namespace tc.Models
                 return this;
             }
 
-            public FilmBuilder RusTitle(string title)
+            public FilmBuilder AlternativeTitle(string? title)
             {
-                _film.RusTitle = title;
+                _film.AlternativeTitle = title;
                 return this;
             }
 
@@ -42,9 +44,15 @@ namespace tc.Models
                 _film.DateRelease = date;
                 return this;
             }
-            public FilmBuilder LinkUrl(string? linkUrl)
+            public FilmBuilder ImdbId(string? imdb)
             {
-                _film.LinkUrl = linkUrl;
+                _film.ImdbId = imdb;
+                return this;
+            }
+
+            public FilmBuilder LinkUrl(string? kp)
+            {
+                _film.KpId = kp;
                 return this;
             }
 
@@ -54,7 +62,7 @@ namespace tc.Models
                 return this;
             }
 
-            public FilmBuilder Time(long globalTime)
+            public FilmBuilder Time(long? globalTime)
             {
                 _film.Time = globalTime;
                 return this;
