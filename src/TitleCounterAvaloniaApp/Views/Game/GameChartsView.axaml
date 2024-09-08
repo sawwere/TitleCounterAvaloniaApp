@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+             xmlns:assets="clr-namespace:tc.Assets"
+             xmlns:views="using:tc.Views"
+             xmlns:viewModels="clr-namespace:tc.ViewModels.Game"
+             xmlns:converters="using:tc.Utils.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
+             x:Class="tc.Views.Game.GameChartsView"
+             x:DataType="viewModels:GameChartViewModel">
+  <ScrollViewer>
+    <StackPanel>
+      <lvc:PieChart Width="400" Height="400"
+      Series="{Binding StatusSeries}">
+      </lvc:PieChart>
+      <lvc:CartesianChart Series="{Binding CompletedByYear}"
+                          Width="400" Height="400"></lvc:CartesianChart>
+    </StackPanel>
+
+
+
+  </ScrollViewer>
+
+</UserControl>

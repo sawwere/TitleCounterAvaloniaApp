@@ -73,14 +73,25 @@ namespace tc.Service
 
         public static GameEntry DtoToEntry(GameEntryResponseDto gameEntryDto)
         {
-            if (!DateOnly.TryParse(gameEntryDto.DateCompleted, out DateOnly dateC) && gameEntryDto.DateCompleted is not null)
+            DateOnly? dateR = null;
+            DateOnly? dateC = null;
+            if (gameEntryDto.DateCompleted is not null)
             {
-                throw new JsonParseException($"Error parsing dateCompleted of game with id {gameEntryDto.Game.Id}");
+                if (!DateOnly.TryParse(gameEntryDto.DateCompleted, out DateOnly tmp))
+                {
+                    throw new JsonParseException($"Error parsing dateCompleted of game with id {gameEntryDto.Game.Id}");
+                }
+                dateC = tmp;
             }
-            if (!DateOnly.TryParse(gameEntryDto.Game.DateRelease, out DateOnly dateR) && gameEntryDto.Game.DateRelease is not null)
+            if (gameEntryDto.Game.DateRelease is not null)
             {
-                throw new JsonParseException($"Error parsing dateRelease of game with id {gameEntryDto.Game.Id}");
+                if (!DateOnly.TryParse(gameEntryDto.Game.DateRelease, out DateOnly tmp))
+                {
+                    throw new JsonParseException($"Error parsing dateRelease of game with id {gameEntryDto.Game.Id}");
+                }
+                dateR = tmp;
             }
+            
             Game game = Game.Builder()
                 .Id(gameEntryDto.Game.Id)
                 .Title(gameEntryDto.Game.Title)

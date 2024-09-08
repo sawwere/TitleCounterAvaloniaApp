@@ -6,7 +6,7 @@
              xmlns:viewModels="clr-namespace:tc.ViewModels"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="100"
              x:Class="tc.Views.FilmEntryButtonPreView"
-             x:DataType="viewModels:EntryViewModels.FilmEntryViewModel">
+             x:DataType="viewModels:Film.FilmEntryViewModel">
   <Border CornerRadius="10" ClipToBounds="True" Background="{Binding Score, Converter={x:Static views:Converters.MyConverter}}">
     <Border CornerRadius="10" ClipToBounds="True" Margin="5" >
     <Grid Background="#cc312029" Width="250" Height="100"

@@ -5,8 +5,8 @@
              xmlns:views="using:tc.Views"
              xmlns:viewModels="clr-namespace:tc.ViewModels"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="100"
-             x:Class="tc.Views.GameEntryButtonPreView"
-             x:DataType="viewModels:EntryViewModels.GameEntryViewModel">
+             x:Class="tc.Views.Game.GameEntryButtonPreView"
+             x:DataType="viewModels:Game.GameEntryViewModel">
   <Border CornerRadius="10" ClipToBounds="True" Background="{Binding Score, Converter={x:Static views:Converters.MyConverter}}">
     <Border CornerRadius="10" ClipToBounds="True" Margin="5" >
       <Grid Background="#cc312029" Width="250" Height="100"

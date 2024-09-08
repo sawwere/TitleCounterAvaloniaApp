@@ -61,6 +61,15 @@ namespace tc.Assets {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Annul filters.
+        /// </summary>
+        public static string AnnulFiltersButton_Text {
+            get {
+                return ResourceManager.GetString("AnnulFiltersButton_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Delete entry.
         /// </summary>
         public static string DeleteEntryText {
@@ -70,83 +79,173 @@ namespace tc.Assets {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Must be not blank, length &lt; 64.
+        /// </summary>
+        public static string EntryAttribute_CustomTitle_ValidationMessage {
+            get {
+                return ResourceManager.GetString("EntryAttribute_CustomTitle_ValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Completition Date.
         /// </summary>
-        public static string EntryPanel_DateCompleted {
+        public static string EntryAttribute_DateCompleted {
             get {
-                return ResourceManager.GetString("EntryPanel_DateCompleted", resourceCulture);
+                return ResourceManager.GetString("EntryAttribute_DateCompleted", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Release Date.
         /// </summary>
-        public static string EntryPanel_DateRelease {
+        public static string EntryAttribute_DateRelease {
             get {
-                return ResourceManager.GetString("EntryPanel_DateRelease", resourceCulture);
+                return ResourceManager.GetString("EntryAttribute_DateRelease", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на h..
         /// </summary>
-        public static string EntryPanel_Hours {
+        public static string EntryAttribute_Hours {
             get {
-                return ResourceManager.GetString("EntryPanel_Hours", resourceCulture);
+                return ResourceManager.GetString("EntryAttribute_Hours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Must be non-negative.
+        /// </summary>
+        public static string EntryAttribute_Hours_ValidationMessage {
+            get {
+                return ResourceManager.GetString("EntryAttribute_Hours_ValidationMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на m..
         /// </summary>
-        public static string EntryPanel_Minutes {
+        public static string EntryAttribute_Minutes {
             get {
-                return ResourceManager.GetString("EntryPanel_Minutes", resourceCulture);
+                return ResourceManager.GetString("EntryAttribute_Minutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на must be between 0 and 59.
+        /// </summary>
+        public static string EntryAttribute_Minutes_ValidationMessage {
+            get {
+                return ResourceManager.GetString("EntryAttribute_Minutes_ValidationMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Note.
         /// </summary>
-        public static string EntryPanel_Note {
+        public static string EntryAttribute_Note {
             get {
-                return ResourceManager.GetString("EntryPanel_Note", resourceCulture);
+                return ResourceManager.GetString("EntryAttribute_Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Length is limited to 512 characters.
+        /// </summary>
+        public static string EntryAttribute_Note_ValidationMessage {
+            get {
+                return ResourceManager.GetString("EntryAttribute_Note_ValidationMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Score.
         /// </summary>
-        public static string EntryPanel_Score {
+        public static string EntryAttribute_Score {
             get {
-                return ResourceManager.GetString("EntryPanel_Score", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на No score.
-        /// </summary>
-        public static string EntryPanel_Score_NoScore {
-            get {
-                return ResourceManager.GetString("EntryPanel_Score_NoScore", resourceCulture);
+                return ResourceManager.GetString("EntryAttribute_Score", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Status.
         /// </summary>
-        public static string EntryPanel_Status {
+        public static string EntryAttribute_Status {
             get {
-                return ResourceManager.GetString("EntryPanel_Status", resourceCulture);
+                return ResourceManager.GetString("EntryAttribute_Status", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Time.
         /// </summary>
-        public static string EntryPanel_Time {
+        public static string EntryAttribute_Time {
             get {
-                return ResourceManager.GetString("EntryPanel_Time", resourceCulture);
+                return ResourceManager.GetString("EntryAttribute_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Backlog.
+        /// </summary>
+        public static string EntryStatus_Backlog {
+            get {
+                return ResourceManager.GetString("EntryStatus_Backlog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Completed.
+        /// </summary>
+        public static string EntryStatus_Completed {
+            get {
+                return ResourceManager.GetString("EntryStatus_Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на In progress.
+        /// </summary>
+        public static string EntryStatus_InProgress {
+            get {
+                return ResourceManager.GetString("EntryStatus_InProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Retired.
+        /// </summary>
+        public static string EntryStatus_Retired {
+            get {
+                return ResourceManager.GetString("EntryStatus_Retired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на List.
+        /// </summary>
+        public static string GamesPage_TabList_Name {
+            get {
+                return ResourceManager.GetString("GamesPage_TabList_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Search.
+        /// </summary>
+        public static string GamesPage_TabSearch_Name {
+            get {
+                return ResourceManager.GetString("GamesPage_TabSearch_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Stats.
+        /// </summary>
+        public static string GamesPage_TabStats_Name {
+            get {
+                return ResourceManager.GetString("GamesPage_TabStats_Name", resourceCulture);
             }
         }
         
@@ -178,6 +277,33 @@ namespace tc.Assets {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на No completition date.
+        /// </summary>
+        public static string NoDateCompleted_Label {
+            get {
+                return ResourceManager.GetString("NoDateCompleted_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на No date release.
+        /// </summary>
+        public static string NoDateRelease_Label {
+            get {
+                return ResourceManager.GetString("NoDateRelease_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на No score.
+        /// </summary>
+        public static string NoScore_Label {
+            get {
+                return ResourceManager.GetString("NoScore_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Films.
         /// </summary>
         public static string PaneItem_FilmsPage {
@@ -205,11 +331,83 @@ namespace tc.Assets {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Save changes.
+        /// </summary>
+        public static string SaveChangesText {
+            get {
+                return ResourceManager.GetString("SaveChangesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Error encountered while performing request. Check your connection or try again later..
         /// </summary>
         public static string ServiceUnavableMessage {
             get {
                 return ResourceManager.GetString("ServiceUnavableMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Sort by.
+        /// </summary>
+        public static string SortBy_Label {
+            get {
+                return ResourceManager.GetString("SortBy_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Completition Date.
+        /// </summary>
+        public static string SortByOption_DateCompletition {
+            get {
+                return ResourceManager.GetString("SortByOption_DateCompletition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Release date.
+        /// </summary>
+        public static string SortByOption_DateRelease {
+            get {
+                return ResourceManager.GetString("SortByOption_DateRelease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Score.
+        /// </summary>
+        public static string SortByOption_Score {
+            get {
+                return ResourceManager.GetString("SortByOption_Score", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Status.
+        /// </summary>
+        public static string SortByOption_Status {
+            get {
+                return ResourceManager.GetString("SortByOption_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Time.
+        /// </summary>
+        public static string SortByOption_Time {
+            get {
+                return ResourceManager.GetString("SortByOption_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Title.
+        /// </summary>
+        public static string SortByOption_Title {
+            get {
+                return ResourceManager.GetString("SortByOption_Title", resourceCulture);
             }
         }
     }

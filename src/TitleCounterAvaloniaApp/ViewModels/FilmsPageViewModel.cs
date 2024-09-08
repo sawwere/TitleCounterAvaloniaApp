@@ -8,7 +8,7 @@ using System.Threading;
 using System.Windows.Input;
 using tc.Models;
 using tc.Service;
-using tc.ViewModels.EntryViewModels;
+using tc.ViewModels.Film;
 
 namespace tc.ViewModels
 {

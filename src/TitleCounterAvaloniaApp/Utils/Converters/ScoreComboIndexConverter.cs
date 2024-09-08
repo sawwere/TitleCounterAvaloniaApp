@@ -1,4 +1,5 @@
-﻿using Avalonia.Data.Converters;
+﻿using Avalonia.Data;
+using Avalonia.Data.Converters;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,20 +13,26 @@ namespace tc.Utils.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
+            //if (targetType.Equals( typeof(System.Int32))) 
+            //    return new BindingNotification(new InvalidCastException(),
+            //                                        BindingErrorType.Error);
             if (value is null)
             {
-                return 0;
+                return -1;
             }
-            return (long)value;
+            return (long)value-1;
         }
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is null || (int)value! == 0)
+            //if (targetType.Equals(typeof(long?)))
+            //    return new BindingNotification(new InvalidCastException(),
+            //                                        BindingErrorType.Error);
+            if (value is null || (int)value! == -1)
             {
                 return null;
             }
-            return value;
+            return (int)value + 1;
         }
     }
 }

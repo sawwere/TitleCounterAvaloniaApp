@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging.Messages;
-using tc.ViewModels.EntryViewModels;
+using tc.ViewModels.Game;
 
 namespace tc.Utils.Messages
 {

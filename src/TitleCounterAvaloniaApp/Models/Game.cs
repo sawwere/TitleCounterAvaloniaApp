@@ -2,13 +2,25 @@
 
 namespace tc.Models
 {
-    public class Game : AbstractContent
+    public class Game : AbstractContent, ICloneable
     {
         public string? HltbId { get; set; }
 
         public static GameBuilder Builder()
         {
             return new GameBuilder();
+        }
+
+        public object Clone()
+        {
+            return Builder()
+                .Id(Id)
+                .Title(Title)
+                .HltbId(HltbId)
+                .DateRelease(DateRelease)
+                .GlobalScore(GlobalScore)
+                .Time(Time)
+                .Build();
         }
 
         public class GameBuilder

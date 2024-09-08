@@ -14,14 +14,35 @@ namespace tc.ViewModels
         private readonly AuthService _authService;
         private readonly IMessenger _messenger;
         public ICommand LoginCommand { get; }
-        [ObservableProperty]
+        //[ObservableProperty]
         private bool _isBusy;
-        [ObservableProperty]
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set => this.RaiseAndSetIfChanged(ref _isBusy, value);
+        }
+        //[ObservableProperty]
         private string _errorMessage = "";
-        [ObservableProperty]
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set => this.RaiseAndSetIfChanged(ref this._errorMessage, value);
+        }
+        //[ObservableProperty]
         private string _username = "admin";
-        [ObservableProperty]
+        public string Username
+        {
+            get => _username;
+            set => this.RaiseAndSetIfChanged(ref _username, value);
+        }
+
+        //[ObservableProperty]
         private string _password = "1111";
+        public string Password
+        {
+            get => _password;
+            set => this.RaiseAndSetIfChanged(ref _password, value);
+        }
 
         public LoginPageViewModel(AuthService authService, IMessenger messenger)
         {

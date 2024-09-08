@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace tc.Views
+namespace tc.Views.Game
 {
     public partial class GameEntryButtonPreView : UserControl
     {

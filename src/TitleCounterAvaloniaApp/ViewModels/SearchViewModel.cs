@@ -20,9 +20,13 @@ namespace tc.ViewModels
         public ReactiveCommand<Unit, Entry?> AddContent { get; }
 
         private string? _searchText;
-        [ObservableProperty]
+        //[ObservableProperty]
         private bool _isBusy;
-
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set => this.RaiseAndSetIfChanged(ref _isBusy, value);
+        }
         public string? SearchText
         {
             get => _searchText;

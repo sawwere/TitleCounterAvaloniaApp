@@ -20,11 +20,21 @@ namespace tc.ViewModels
     {
         private readonly UserService _userService;
 
-        [ObservableProperty]
+        //[ObservableProperty]
         private bool _isPaneVisible;
+        public bool IsPaneVisible
+        {
+            get => _isPaneVisible;
+            set => this.RaiseAndSetIfChanged(ref _isPaneVisible, value);
+        }
 
-        [ObservableProperty]
+        //[ObservableProperty]
         private bool _isPaneOpen;
+        public bool IsPaneOpen
+        {
+            get => _isPaneOpen;
+            set => this.RaiseAndSetIfChanged(ref _isPaneOpen, value);
+        }
 
         [RelayCommand]
         private void TriggerPane()
@@ -32,16 +42,26 @@ namespace tc.ViewModels
             IsPaneOpen = !IsPaneOpen;
         }
 
-        [ObservableProperty]
+        //[ObservableProperty]
         private ViewModelBase _currentPage = Ioc.Default.GetRequiredService<LoginPageViewModel>();
+        public ViewModelBase CurrentPage
+        {
+            get => _currentPage;
+            set => this.RaiseAndSetIfChanged(ref _currentPage, value);
+        }
 
         public ObservableCollection<ListItemTemplate> Items { get; } =
         [
             new ListItemTemplate(typeof(HomePageViewModel), "home_regular"),
         ];
 
-        [ObservableProperty]
+        //[ObservableProperty]
         private ListItemTemplate _selectedListItem;
+        public ListItemTemplate SelectedListItem
+        {
+            get => _selectedListItem;
+            set => this.RaiseAndSetIfChanged(ref _selectedListItem, value);
+        }
 
         private readonly IMessenger _messenger;
 

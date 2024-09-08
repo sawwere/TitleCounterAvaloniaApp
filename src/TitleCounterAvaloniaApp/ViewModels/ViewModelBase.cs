@@ -3,14 +3,15 @@ using ReactiveUI;
 using System.Collections.Generic;
 using System;
 using System.ComponentModel;
+using ReactiveUI.Validation.Helpers;
 
 namespace tc.ViewModels
 {
-    public abstract class ViewModelBase : ObservableValidator, IReactiveObject
+    public abstract class ViewModelBase : ReactiveValidationObject
     {
-        public void RaisePropertyChanging(PropertyChangingEventArgs args) => OnPropertyChanging(args);
+        //public void RaisePropertyChanging(PropertyChangingEventArgs args) => OnPropertyChanging(args);
 
-        public void RaisePropertyChanged(PropertyChangedEventArgs args) => OnPropertyChanged(args);
+        //public void RaisePropertyChanged(PropertyChangedEventArgs args) => OnPropertyChanged(args);
 
         private static readonly string[] NO_ERRORS = Array.Empty<string>();
         private readonly Dictionary<string, List<string>> _errorsByPropertyName = new Dictionary<string, List<string>>();

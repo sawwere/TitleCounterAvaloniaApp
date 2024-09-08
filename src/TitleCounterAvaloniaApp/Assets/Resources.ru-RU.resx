@@ -129,34 +129,34 @@
   <data name="PaneItem_FilmsPage" xml:space="preserve">
     <value>Фильмы</value>
   </data>
-  <data name="EntryPanel_DateRelease" xml:space="preserve">
+  <data name="EntryAttribute_DateRelease" xml:space="preserve">
     <value>Дата выхода</value>
   </data>
-  <data name="EntryPanel_Status" xml:space="preserve">
+  <data name="EntryAttribute_Status" xml:space="preserve">
     <value>Статус</value>
   </data>
-  <data name="EntryPanel_Score" xml:space="preserve">
+  <data name="EntryAttribute_Score" xml:space="preserve">
     <value>Оценка</value>
   </data>
-  <data name="EntryPanel_DateCompleted" xml:space="preserve">
+  <data name="EntryAttribute_DateCompleted" xml:space="preserve">
     <value>Дата завершения</value>
   </data>
-  <data name="EntryPanel_Hours" xml:space="preserve">
+  <data name="EntryAttribute_Hours" xml:space="preserve">
     <value>ч.</value>
   </data>
-  <data name="EntryPanel_Minutes" xml:space="preserve">
+  <data name="EntryAttribute_Minutes" xml:space="preserve">
     <value>м.</value>
   </data>
-  <data name="EntryPanel_Note" xml:space="preserve">
+  <data name="EntryAttribute_Note" xml:space="preserve">
     <value>Отзыв</value>
   </data>
-  <data name="EntryPanel_Time" xml:space="preserve">
+  <data name="EntryAttribute_Time" xml:space="preserve">
     <value>Время</value>
   </data>
   <data name="DeleteEntryText" xml:space="preserve">
     <value>Удалить запись</value>
   </data>
-  <data name="EntryPanel_Score_NoScore" xml:space="preserve">
+  <data name="NoScore_Label" xml:space="preserve">
     <value>Без оценки</value>
   </data>
   <data name="ServiceUnavableMessage" xml:space="preserve">
@@ -167,5 +167,71 @@
   </data>
   <data name="LoginPage_LoginButton" xml:space="preserve">
     <value>Войти</value>
+  </data>
+  <data name="NoDateRelease_Label" xml:space="preserve">
+    <value>Нет даты выхода</value>
+  </data>
+  <data name="NoDateCompleted_Label" xml:space="preserve">
+    <value>Нет даты завершения</value>
+  </data>
+  <data name="EntryStatus_Backlog" xml:space="preserve">
+    <value>Бэклог</value>
+  </data>
+  <data name="EntryStatus_Completed" xml:space="preserve">
+    <value>Завершено</value>
+  </data>
+  <data name="EntryStatus_Retired" xml:space="preserve">
+    <value>Брошено</value>
+  </data>
+  <data name="EntryStatus_InProgress" xml:space="preserve">
+    <value>В процессе</value>
+  </data>
+  <data name="SortByOption_Title" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="SortByOption_Score" xml:space="preserve">
+    <value>Оценка</value>
+  </data>
+  <data name="SortByOption_DateRelease" xml:space="preserve">
+    <value>Дата выхода</value>
+  </data>
+  <data name="SortByOption_DateCompletition" xml:space="preserve">
+    <value>Дата завершения</value>
+  </data>
+  <data name="SortByOption_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="SortByOption_Time" xml:space="preserve">
+    <value>Время</value>
+  </data>
+  <data name="SortBy_Label" xml:space="preserve">
+    <value>Сортировать по</value>
+  </data>
+  <data name="AnnulFiltersButton_Text" xml:space="preserve">
+    <value>Сбросить фильтр</value>
+  </data>
+  <data name="SaveChangesText" xml:space="preserve">
+    <value>Сохранить изменения</value>
+  </data>
+  <data name="GamesPage_TabSearch_Name" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="GamesPage_TabList_Name" xml:space="preserve">
+    <value>Список</value>
+  </data>
+  <data name="GamesPage_TabStats_Name" xml:space="preserve">
+    <value>Статистика</value>
+  </data>
+  <data name="EntryAttribute_Hours_ValidationMessage" xml:space="preserve">
+    <value>Неотрицательное число</value>
+  </data>
+  <data name="EntryAttribute_Minutes_ValidationMessage" xml:space="preserve">
+    <value>Число в диапозоне от 0 до 59</value>
+  </data>
+  <data name="EntryAttribute_Note_ValidationMessage" xml:space="preserve">
+    <value>Длина не более 512 символов</value>
+  </data>
+  <data name="EntryAttribute_CustomTitle_ValidationMessage" xml:space="preserve">
+    <value>Должно быть непустым и не более 64 символов</value>
   </data>
 </root>

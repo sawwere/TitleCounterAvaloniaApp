@@ -12,9 +12,9 @@ using System.Windows.Input;
 using tc.Models;
 using tc.Service;
 
-namespace tc.ViewModels.EntryViewModels
+namespace tc.ViewModels.Film
 {
-    public partial class FilmEntryViewModel: ViewModelBase
+    public partial class FilmEntryViewModel : ViewModelBase
     {
         private static readonly string[] propertiesToMonitor = ["CustomTitle", "Status", "Score", "DateCompleted", "Note",];
 
@@ -55,35 +55,87 @@ namespace tc.ViewModels.EntryViewModels
             );
         }
 
-        [ObservableProperty]
+        //[ObservableProperty]
         private string _customTitle;
-        [ObservableProperty]
+        public string CustomTitle
+        {
+            get { return _customTitle; }
+            set { this.RaiseAndSetIfChanged(ref _customTitle, value); }
+        }
+
+        //[ObservableProperty]
         private string? _alternativeTitle;
+        public string AlternativeTitle
+        {
+            get { return _alternativeTitle; }
+            set { this.RaiseAndSetIfChanged(ref _alternativeTitle, value); }
+        }
 
-        [ObservableProperty]
+        // [ObservableProperty]
         private string _status;
-        [ObservableProperty]
-        private int _statusComboBoxIndex;
+        public string Status
+        {
+            get { return _status; }
+            set { this.RaiseAndSetIfChanged(ref _status, value); }
+        }
 
-        [ObservableProperty]
+        //[ObservableProperty]
+        private int _statusComboBoxIndex;
+        public int StatusComboBoxIndex
+        {
+            get { return _statusComboBoxIndex; }
+            set { this.RaiseAndSetIfChanged(ref _statusComboBoxIndex, value); }
+        }
+
+        //[ObservableProperty]
         private string? _note;
+        public string? Note
+        {
+            get { return _note; }
+            set { this.RaiseAndSetIfChanged(ref _note, value); }
+        }
         public DateOnly? DateRelease => _entry.Content.DateRelease;
         public Uri? LinkUrl => _entry.Content.LinkUrl is null ? null : new Uri(_entry.Content.LinkUrl);
 
-        [ObservableProperty]
+        //[ObservableProperty]
         private long? _hours;
+        public long? Hours
+        {
+            get { return _hours; }
+            set { this.RaiseAndSetIfChanged(ref _hours, value); }
+        }
 
-        [ObservableProperty]
+        //[ObservableProperty]
         private long? _minutes;
+        public long? Minutes
+        {
+            get { return _minutes; }
+            set { this.RaiseAndSetIfChanged(ref _minutes, value); }
+        }
 
-        [ObservableProperty]
+        //[ObservableProperty]
         private long? _score;
+        public long? Score
+        {
+            get { return _score; }
+            set { this.RaiseAndSetIfChanged(ref _score, value); }
+        }
 
-        [ObservableProperty]
+        //[ObservableProperty]
         private DateTimeOffset? _dateCompleted;
+        public DateTimeOffset? DateCompleted
+        {
+            get { return _dateCompleted; }
+            set { this.RaiseAndSetIfChanged(ref _dateCompleted, value); }
+        }
 
-        [ObservableProperty]
+        //[ObservableProperty]
         private Bitmap? _cover;
+        public Bitmap? Cover
+        {
+            get { return _cover; }
+            set { this.RaiseAndSetIfChanged(ref _cover, value); }
+        }
 
         public async Task LoadCover()
         {

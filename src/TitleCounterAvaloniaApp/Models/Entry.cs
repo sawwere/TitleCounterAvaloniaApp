@@ -3,8 +3,6 @@ using System.Runtime.InteropServices;
 
 namespace tc.Models
 {
-    public enum TitleStatus { COMPLETED = 1, BACKLOG, RETIRED, IN_PROGRESS };
-    [StructLayout(LayoutKind.Sequential)]
     public abstract class Entry
     {
         public AbstractContent Content { get; set; }

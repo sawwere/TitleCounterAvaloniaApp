@@ -22,7 +22,7 @@ namespace tc
             collection
                 .AddSingleton<MainViewModel>()
                 .AddSingleton<HomePageViewModel>()
-                .AddTransient<GamesPageViewModel>()
+                .AddSingleton<GamesPageViewModel>()
                 .AddTransient<FilmsPageViewModel>()
                 .AddTransient<LoginPageViewModel>();
 

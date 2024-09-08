@@ -2,16 +2,32 @@
 
 namespace tc.Models;
 
-public partial class GameEntry : Entry
+public partial class GameEntry : Entry, ICloneable
 {
     public long? Time { get; set; }
     public string? Platform { get; set; }
 
-    //protected override AbstractContentService _service => GameService.Instance;
+    public new Game Content { get; set; } 
 
     public static GameEntryBuilder Builder()
     {
         return new GameEntryBuilder();
+    }
+
+    public object Clone()
+    {
+        return Builder()
+            .Id(Id)
+            .UserId(UserId)
+            .Game(this.Content as Game)
+            .CustomTitle(CustomTitle)
+            .Status(Status)
+            .Time(this.Time)
+            .Platform(this.Platform)
+            .Note(this.Note)
+            .DateCompleted(this.DateCompleted)
+            .Score(this.Score)
+            .Build();
     }
 
     public class GameEntryBuilder
@@ -47,7 +63,7 @@ public partial class GameEntry : Entry
             return this;
         }
 
-        public GameEntryBuilder DateCompleted(DateOnly date)
+        public GameEntryBuilder DateCompleted(DateOnly? date)
         {
             _game.DateCompleted = date;
             return this;

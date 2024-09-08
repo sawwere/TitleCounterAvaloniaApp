@@ -2,19 +2,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:assets="clr-namespace:tc.Assets"
+             xmlns:gameViews="clr-namespace:tc.Views.Game"
              xmlns:views="clr-namespace:tc.Views"
              xmlns:vm="using:tc.ViewModels"
+             xmlns:converters="using:tc.Utils.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="tc.Views.GamesPageView"
              x:DataType="vm:GamesPageViewModel">
   <Design.DataContext>
   </Design.DataContext>
+  <UserControl.Resources>
+    <converters:ScoreComboIndexConverter x:Key="scoreConverter"/>
+  </UserControl.Resources>
   <Grid>
-    <views:ErrorMessageOverlayView DataContext="{Binding ErrorOverlay}" 
+   <!-- <views:ErrorMessageOverlayView DataContext="{Binding ErrorOverlay}" 
                                    ZIndex="1000"
                                    IsVisible="{Binding Message, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
-    <TabControl Margin="5">
-      <TabItem Content="Tab 1">
+    -->
+    <TabControl Margin="1">
+      <TabItem Content="Tab 1" Margin="">
         <TabItem.Header>
             <Image Width="36" Height="36" Source="/Assets/search_icon.png" />
         </TabItem.Header>
@@ -23,42 +30,118 @@
         </TransitioningContentControl>
       </TabItem>
         
-      <TabItem Header="List">
-        <SplitView PanePlacement="Right"
-            IsPaneOpen="{Binding SelectedEntry, Converter={x:Static ObjectConverters.IsNotNull}}"
-        DisplayMode="CompactInline"
-        OpenPaneLength="400">
-          <SplitView.Pane>
-            <Panel Background="Gray">
-              <ContentControl Content="{Binding SelectedEntry}" Margin="0,20,0,0">
-              </ContentControl>
-            </Panel>
-          </SplitView.Pane>
-        <ListBox Margin="0 10 0 0"
-              ItemsSource="{Binding TestViewModels}"
-              SelectedItem="{Binding SelectedEntry}"
-              HorizontalAlignment="Center">
-          <ListBox.ItemsPanel>
-            <ItemsPanelTemplate>
-              <WrapPanel >
-              </WrapPanel>
-            </ItemsPanelTemplate>
-          </ListBox.ItemsPanel>
-          <ListBox.Styles>
-            <Style Selector="ListBoxItem">
-              <Setter Property="Background" Value="#ff34284b"/>
-            </Style>
-          </ListBox.Styles>
-          <ListBox.DataTemplates>
-            <DataTemplate DataType="vm:EntryViewModels.GameEntryViewModel">
-              <views:GameEntryButtonPreView Margin="0 0 2 2" />
-            </DataTemplate>
-          </ListBox.DataTemplates>
-        </ListBox>
-        </SplitView>
+      <TabItem Header="{x:Static assets:Resources.GamesPage_TabList_Name}">
+        <Grid ColumnDefinitions="*, Auto"
+              RowDefinitions="Auto,*">
+          <ContentControl Content="{Binding SelectedEntry}"
+                          IsVisible="{Binding SelectedEntry, Converter={x:Static ObjectConverters.IsNotNull}}"
+                 Grid.Column="1"
+                 Grid.RowSpan="2"
+                          Width="450"
+                          Padding="10"
+                          Background="BlueViolet"
+                           ZIndex="100">
+          </ContentControl>
+          <Panel Opacity="{Binding OverlayOpacity}"
+                 x:Name="entryOverlay"
+                 IsVisible="{Binding SelectedEntry, Converter={x:Static ObjectConverters.IsNotNull}}"
+                 Grid.Column="0"
+                 Grid.RowSpan="2"
+                 Background="Black"
+                 ZIndex="10">
+            <Panel.Transitions>
+              <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.3"/>
+              </Transitions>
+            </Panel.Transitions>
+          </Panel>
+          <Grid Grid.Row="0" 
+                Grid.ColumnSpan="2"
+                RowDefinitions="Auto"
+                ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto">
+            <StackPanel Orientation="Vertical"
+                        Margin="3"
+                        Grid.Row="0"
+                       Grid.Column="0">
+              <TextBlock Text="{x:Static assets:Resources.EntryAttribute_Status}"/>
+              <ComboBox HorizontalAlignment="Stretch"
+                        Width="100"
+                        SelectedIndex="{Binding SelectedStatusFilterIndex}"
+                        ItemsSource="{Binding statusFilterItems}">
+              </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Vertical"
+                        Margin="3"
+                        Grid.Row="0"
+                        Grid.Column="1">
+              <TextBlock Text="{x:Static assets:Resources.EntryAttribute_Score}"/>
+              <ComboBox HorizontalAlignment="Stretch"
+                        SelectedIndex="{Binding SelectedScoreFilterIndex}"
+                        ItemsSource="{Binding ScoreFilterItems}">
+              </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Vertical"
+                        Margin="3"
+                        Grid.Row="0"
+                        Grid.Column="2">
+              <TextBlock Text="{x:Static assets:Resources.EntryAttribute_DateRelease}"/>
+              <ComboBox HorizontalAlignment="Stretch"
+                        SelectedIndex="{Binding SelectedReleaseYearFilterIndex}"
+                        ItemsSource="{Binding ReleaseYearsFilterItems}">
+              </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Vertical"
+                        Margin="3"
+                        Grid.Row="0"
+                        Grid.Column="3">
+              <TextBlock Text="{x:Static assets:Resources.EntryAttribute_DateCompleted}"/>
+              <ComboBox HorizontalAlignment="Stretch"
+                        SelectedIndex="{Binding SelectedCompletitionYearFilterIndex}"
+                        ItemsSource="{Binding CompletitionYearsFilterItems}">
+              </ComboBox>
+            </StackPanel>
+            <Button Grid.Row="0"
+                    Grid.Column="4"
+                    VerticalAlignment="Bottom"
+                    Margin="3"
+                    Content="{x:Static assets:Resources.AnnulFiltersButton_Text}"
+                    Command="{Binding AnnulFilters}">
+            </Button>
+            <StackPanel Grid.Row="0"
+                        Grid.Column="6"
+                        Margin="3">
+              <TextBlock Text="{x:Static assets:Resources.SortBy_Label}"/>
+              <ComboBox HorizontalAlignment="Stretch"
+                        Width="150"
+                      SelectedIndex="0"
+                      ItemsSource="{Binding SortOptions}"
+                      SelectedItem="{Binding SortBy}">
+              </ComboBox>
+            </StackPanel>
+          </Grid>
+          <ListBox Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                      ItemsSource="{Binding TestViewModels}"
+                      SelectedItem="{Binding SelectedEntry}"
+                      HorizontalAlignment="Center" Background="Transparent">
+            <ListBox.ItemsPanel>
+              <ItemsPanelTemplate>
+                <WrapPanel >
+                </WrapPanel>
+              </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.DataTemplates>
+              <DataTemplate DataType="vm:Game.GameEntryViewModel">
+                <gameViews:GameEntryButtonPreView Margin="0 0 2 2" Background="Transparent"/>
+              </DataTemplate>
+            </ListBox.DataTemplates>
+          </ListBox>
+            
+         </Grid>
       </TabItem>
-      <TabItem Header="Stats">
-        <TextBlock Margin="5">No content</TextBlock>
+      <TabItem Header="{x:Static assets:Resources.GamesPage_TabStats_Name}">
+        <TransitioningContentControl>
+          <gameViews:GameChartsView DataContext="{Binding Charts}"/>
+        </TransitioningContentControl>
       </TabItem>
     </TabControl>
   </Grid>

@@ -1,4 +1,4 @@
-﻿namespace tc.ViewModels.EntryPreViewModels
+﻿namespace tc.ViewModels.Game
 {
     internal class GameEntryPreViewModel
     {
