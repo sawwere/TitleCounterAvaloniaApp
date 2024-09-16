@@ -95,11 +95,15 @@ namespace tc.Service
             Game game = Game.Builder()
                 .Id(gameEntryDto.Game.Id)
                 .Title(gameEntryDto.Game.Title)
+                .GameType(gameEntryDto.Game.GameType)
+                .Description(gameEntryDto.Game.Description)
                 .DateRelease(dateR)
                 .Time(gameEntryDto.Game.Time)
-                .HltbId(gameEntryDto.Game.HltbId)
+                .ExternalId(gameEntryDto.Game.ExternalId)
                 .GlobalScore(gameEntryDto.Game.GlobalScore)
                 .Build();
+            game.Platforms.AddRange(gameEntryDto.Game.Platforms);
+            game.Developers.AddRange(gameEntryDto.Game.Developers);
             return GameEntry.Builder()
                 .Id(gameEntryDto.Id)
                 .Game(game)

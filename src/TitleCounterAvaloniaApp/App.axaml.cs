@@ -24,7 +24,7 @@ namespace tc
         public override void OnFrameworkInitializationCompleted()
         {
             Debug.WriteLine(CultureInfo.CurrentCulture);
-            Assets.Resources.Culture = new CultureInfo("ru-RU");
+            Assets.Resources.Culture = CultureInfo.CurrentCulture;
 
             var locator = new ViewLocator();
             DataTemplates.Add(locator);

@@ -164,7 +164,7 @@ namespace tc.ViewModels.Game
             }
         }
         public DateOnly? DateRelease => _entry.Content.DateRelease.HasValue ? _entry.Content.DateRelease.Value : null;//TODO
-        public string? HltbLink => _entry.Content.LinkUrl is null ? null : "https://howlongtobeat.com/game/" +Entry.Content.HltbId;
+        public string? HltbLink => _entry.Content.LinkUrl is null ? null : "https://howlongtobeat.com/game/" +Entry.Content.ExternalId.HltbId;
         // String type because of validation of associated textBox
         private string? _hours;
         public string? Hours

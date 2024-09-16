@@ -1,12 +1,15 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Media.Imaging;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using tc.Models;
 using tc.Service;
 
@@ -103,7 +106,9 @@ namespace tc.ViewModels
         {
             foreach (var content in SearchResults.ToList())
             {
-                await content.LoadCover();
+                var data = await _contentService.LoadCoverAsync(content.Id);
+                using var imageStream = new MemoryStream(data);
+                content.Cover = await Task.Run(() => Bitmap.DecodeToWidth(imageStream, 64));
 
                 if (cancellationToken.IsCancellationRequested)
                 {

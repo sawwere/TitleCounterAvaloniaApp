@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Avalonia.Media.Imaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using tc.Dto;
 using tc.Models;
@@ -23,5 +25,7 @@ namespace tc.Service
         /// <param name="searchable">Content to be associated with</param>
         /// <returns></returns>
         public Task<Entry?> Create(ISearchable searchable);
+
+        public Task<byte[]> LoadCoverAsync(long id);
     }
 }
